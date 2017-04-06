@@ -1,13 +1,45 @@
-垃圾回收机制
-对象分配问题，堆栈里的问题，详细的会问道方法区、堆、程序计数器、本地方法栈、虚拟机栈，问题入口从String a,new String(“”)开始
-关键字，private protected public static final 组合着问
-Object类里面有哪几种方法，作用
-equals 和 hashCode方法，重写equals的原则()
+1、垃圾回收机制
+	JVM内存模型，每个区域存储什么数据，每个区域的作用，问题入口从String a,new String(“”)开始
+	这里再说一下String类型的知识点：
+	String是不可变的，体现在：String类内部通过char数组来保存字符串，而这个char数组被声明为final。之所以这样做是为了考虑线程安全的同时降低消耗(与普通的并发机制相比)，这在设计模式中叫做“不变模式”。
+	请看这两个语句：String x = "abc"; String y = new String("abcd");
+	内存分配情况：
+	Java栈       常量池
+	x     ------> "abc"      
+	              "abcd"
+		         Java堆
+	y     ------> "abcd"
+	
+	String a = "a1";
+	String b = "a" + 1; //"a"是字符串字面量
+	System.out.println(a == b); //true  两个字符串字面量相连，得到的新的字符串仍然是字符串字面量
+	
+	String a = "ab";
+	String bb = "b";
+	String b = "a" + bb;
+	System.out.println(a == b); //false  当字符串字面量与String类型变量连接时，得到的新字符串不再保留在常量池中，而是在堆中新建一个对象来存放
+	
+	String a = "ab";
+	final String bb = "b";
+	String b = "a" + bb;
+	System.out.println(a == b); //true   字符串字面量与String类型常量相连得到的新字符串依然保留在常量池中。
+	
+	通过函数return返回字符串字面量与String a = new String("ab")相同;
+	public String getBB(){
+		return "b";
+	}
+	
+	当调用intern方法时，如果常量池中已经包含一个等于此String对象的字符串(用equals()方法确定)，则返回常量池中的字符串，否则将此字符串添加到池中，并返回此字符串对象的引用。
+2、java中的关键字作用
+	private protected public static final 等
+3、Object类里面有哪几种方法，作用
+4、equals 和 hashCode方法，重写equals的原则()
 向上转型
 Java引用类型(强引用，软引用，弱引用，虚引用)
 线程相关的，主要是volitate，synchorized，wait()，notify()，notifyAll()，join()
 Exception和Error
 反射的用途
+	反射就是增加程序的灵活性，避免将程序写死到代码中，(例如，class.forName("com.lizan.Person").newInstance())一般常用在框架中。
 HashMap实现原理(数组+链表)，查找数据的时间复杂度
 List有哪些子类，各有什么区别
 NIO相关，缓冲区、通道、selector。。。(不熟，面了这么多，挂在这里。其实主要是表现在同步阻塞和异步，传输方式不同。标准IO无法实现非阻塞模式、文件锁、读选择、分散聚集等)
