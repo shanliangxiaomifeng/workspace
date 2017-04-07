@@ -12,9 +12,17 @@
 5、Thread类中的start()和run()有什么区别？
 	start()方法被用来启动新创建的线程，而且start()内部调用了run()方法，这和直接调用run()方法的效果不一样。当你调用run()方法的时候，只会是在原来的线程中调用，没有新的线程启动，start()才会启动新的线程。
 
-6、java中Runnable和Callable有什么区别？
+============6、java中Runnable和Callable有什么区别？
+	Callable的call()可以返回值和抛出异常，而Runnable的run()没有这些功能。Callable可以返回装载有计算结果的Future对象
 
-8) Java中CyclicBarrier 和 CountDownLatch有什么不同？
+============8) Java中CyclicBarrier 和 CountDownLatch有什么不同？
+	两者都可以让一组线程等待其他线程。与CyclicBarrier不同的是，CountDownLatch不能重新使用
+	CountDownLatch，一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。
+	主要方法
+	public CountDownLatch(int count);  //参数指定了计数的次数
+	public void countDown();  //当线程调用此方法计数减一
+	public void await throws InterruptedException;  //调用此方法会一直阻塞当前线程，直到计数器的值为0
+	
 
 9) Java内存模型是什么？
 
