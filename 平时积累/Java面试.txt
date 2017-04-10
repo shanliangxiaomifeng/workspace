@@ -33,14 +33,30 @@
 2、java中的关键字作用
 	private protected public static final 等
 3、Object类里面有哪几种方法，作用
+	protected Object clone()创建并返回此对象的一个副本(clone()方法是浅拷贝，需要重写clone()方法来实现深拷贝，需要重写的类要实现克隆Cloneable接口)
+	boolean equals()
+	protected void finalize()
+	Class<?> getClass()
+	int hashCode()返回此对象的hash码值
+	void notify()唤醒在次对象监视器上等待的单个线程
+	void notifyAll()唤醒在此对象监视器上等待的所有线程
+	toString()
+	void wait()在其他线程调用此对象的notify()或者notifyAll()方法前，导致当前线程等待
+	void wait(long timeout)
+	void wait(long timeout, int nanos)
 4、equals 和 hashCode方法，重写equals的原则()
-向上转型
-Java引用类型(强引用，软引用，弱引用，虚引用)
-线程相关的，主要是volitate，synchorized，wait()，notify()，notifyAll()，join()
+	原始的equals()方法用来比较两个对象的地址值
+	hashCode()用来获得对象地址的hash码值
+	重写equals必须重写hashCode()，自反性，对称性、传递性、一致性
+5、向上转型
+	
+6、Java引用类型(强引用，软引用，弱引用，虚引用)
+	
+7、线程相关的，主要是volitate，synchorized，wait()，notify()，notifyAll()，join()
 Exception和Error
 反射的用途
 	反射就是增加程序的灵活性，避免将程序写死到代码中，(例如，class.forName("com.lizan.Person").newInstance())一般常用在框架中。
-HashMap实现原理(数组+链表)，查找数据的时间复杂度
+HashMap实现原理(最常用的：数组+链表)，查找数据的时间复杂度
 List有哪些子类，各有什么区别
 NIO相关，缓冲区、通道、selector。。。(不熟，面了这么多，挂在这里。其实主要是表现在同步阻塞和异步，传输方式不同。标准IO无法实现非阻塞模式、文件锁、读选择、分散聚集等)
 内存泄露，举个例子
