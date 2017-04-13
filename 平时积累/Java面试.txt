@@ -53,7 +53,8 @@
 6、Java引用类型(强引用，软引用，弱引用，虚引用)
 	
 7、线程相关的，主要是volitate，synchorized，wait()，notify()，notifyAll()，join()
-Exception和Error
+8、线程和进程的区别
+9、Exception和Error
 反射的用途
 	反射就是增加程序的灵活性，避免将程序写死到代码中，(例如，class.forName("com.lizan.Person").newInstance())一般常用在框架中。
 HashMap实现原理(最常用的：数组+链表)，查找数据的时间复杂度
