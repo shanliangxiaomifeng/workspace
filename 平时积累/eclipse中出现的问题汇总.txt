@@ -1,0 +1,21 @@
+2、出现“Directory Listing For /”页面，是因为没有指定默认欢迎界面。
+3、在配置catalina环境变量是一定没有bin目录
+4、要在eclipse中使用tomcat一定要在环境变量里配置catalina_home，否则会提示出错
+5、提示zsmart_home is not existed,一定是ZSMART_HOME环境变量配置不正确
+6、errorCode = [S-DAT-00010] errorDesc = [获取连接失败!]  Describing= [sessionID=600011000000000000000]
+	出现上面的错误一般就是网络问题，没联网，或是system.xml配置的数据库不正确，这里在检查时一定要细心
+7、Exception in thread "main" errorCode = [S-SYS-00017] errorDesc = [类com.ztesoft.zsmart.bss.train.comments.services.CommentsServices不存在]
+	这个问题出现的原因是因为建立的服务分发类的名字不是"*Services"格式的，有可能是少了一个s，这个问题很坑
+8、可以在Debug模式中动态的打断点，也就是可以随时打断点。
+9、提示“java version do not match.....facet”，这里的问题就是项目的编译用的jdk版本比工作空间的jdk版本高，解决办法就是
+	在项目上右键选择properties选择java compile，修改java compile level。
+	如果这样不起作用就到工作空间的项目文件中在.setting文件下选择org.eclipse.wst.common.project.facet.core.xml选择<installed facet="java" version="1.5"/>
+	修改version的值时
+10、每次在新建的Dynamic Web Project右键选择properties，之后选择Builders将右侧的Validation全部去掉
+11、refer to the missing type ***。这时按住Ctrl+左键点进去报错的类，会发现类报错，修改掉错误之后应该就好了
+12、web项目中如果报关于servlet的错误，很可能是tomcat中的servlet-api.jar与web项目中lib中的servlet-api.jar冲突
+13、eclipse搜索引用快捷键(Ctrl+Shift+G)
+14、显示类中方法和属性的大纲(Ctrl+O)
+15、编辑窗口的最大化和还原(Ctrl+M)
+16、如果import中总是报错且明明可以指向引用的类，这时要看引用的类的src目录下的目录对不对，如果还不行可以向项目下的.classpath文件手动添加引用的项目
+17、要想使用自动导入修复功能Fix setup project选项，首先要先建好user library，并且将各个项目的src选择好

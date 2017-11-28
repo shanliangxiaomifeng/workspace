@@ -1,0 +1,126 @@
+1、对象是由“{}”括起来的内容，数组是由“[]”括起来的内容。例如定义对象时代码，var object={"key1":"value1","key2":"value2",.....}其中
+	key1相当于对象的属性，value1相当于属性值，所以"key1":"value1"相当于key1=value1。其中value1可以是整数，对象，数组等。例如如下代码：
+	var people={"programmer":[{"firstName":"Brett","lastName":"Joe"},{"firstName":"Jason","lastName":"Hunter"}]};alert(people.programmer[0].firstName);
+	也可以随时修改数据，比如people.programmer[0].firstName="Jimmy";
+2、对象：
+	function Obj(){
+                var a=0; //私有变量
+                var fn=function(){ //私有函数
+                }
+            }
+	Obj就是一个对象(这是定义对象的其中一种方式)。在JavaScript中所有的类型都是对象。它其中的私有变量和私有函数只能在内部使用，即使是Obj的实例仍然无法访问这些属性和函数。
+	var o=new Obj();
+    console.log(o.a); //undefined
+    console.log(o.fn); //undefined
+3、静态变量和静态函数
+	当定义一个函数后通过"."为其添加的属性和函数，通过对象本身可以访问到，但是其实例却访问不到，这样的属性和函数分别被称为静态变量和静态函数。
+	function Obj(){}
+		Obj.a=0; //静态变量
+		Obj.fn=function(){ //静态函数}
+		console.log(Obj.a); //0
+		console.log(typeof Obj.fn); //function
+
+		var o=new Obj();
+		console.log(o.a); //undefined
+		console.log(typeof o.fn); //undefined
+4、也可以定义一些属性和方法，实例化对象之后能够访问，方法如下：
+	function Obj(){
+                this.a=[]; //实例变量
+                this.fn=function(){ //实例方法 }
+            }
+
+            console.log(typeof Obj.a); //undefined
+            console.log(typeof Obj.fn); //undefined
+            var o=new Obj();
+            console.log(typeof o.a); //object
+            console.log(typeof o.fn); //function
+			
+	这里要思考一点，如果再声明一个对象实例var o1=new Obj();那么o与o1对象各自的属性和函数其实是相互独立的，这一点很好理解，和Java一样。这也就是
+	说明每个对象的属性和方法其实都是一份复制。那么假如有很多个对象，其中所用的方法都是完全一样的，这样每一个都复制一份显然很不科学，在这里prototype应运而生
+	比如下面代码：
+		var Person = function() {};
+		Person.prototype.say = function() {
+			alert("Person say");
+		}
+		var p = new Person();
+		p.say(); // Person say
+	使用prototype关键字就表示新定义的任何对象都可以使用原型对象Person的say()方法，但是新对象本身则不具有say()方法，这样就避免了复制对象。
+5、看下面的代码片断:
+	function foo(a, b, c)
+	{
+		return a*b*c;
+	}
+	alert(foo.length);
+	alert(typeof foo.constructor);
+	alert(typeof foo.call);
+	alert(typeof foo.apply);
+	alert(typeof foo.prototype);
+	对于上面的代码,用浏览器运行后你会发现:
+	
+	length: 提供的是函数的参数个数
+	prototype: 是一个object
+	其它三个都是function
+	而对于任何一个函数的声明,它都将会具有上面所述的5个property(方法或者属性).
+6、_proto_属性存在于每个新定义的对象中，每个新定义的对象的_proto_属性是指向原型对象的prototype属性的，即有 var person=new Person()，则
+	person._proto_==Person.prototype;返回值为true。注意上面的var person=new Person()，它的执行原理是下面这样的：
+	var p={};
+	p._proto_=Person.prototype;
+	Person.call(p);
+	
+7、闭包是指有权限访问另一个函数作用域的变量的函数，创建闭包的常见方式就是在一个函数内部创建另一个函数，就是我们上面说的内部函数
+8、JavaScript中在if条件中判断对象是不是为空，可以直接用if(!param){}
+9、js操作cookie
+	在js中创建cookie可以直接用document.cookie="username=lizan; password=abcdef";这里cookie就是一个字符串，里面的变量是键/值对，多个键/值对之间用;和空格隔开。
+	默认情况(没有给cookie设置过期时间)下，浏览器关闭之后cookie就消失了。
+	这里也就会产生内存cookie(也叫session cookie)和硬盘cookie，前者也就是没有设置expire属性即过期时间属性。
+10、在html页面中写js代码时，最好将js代码写在</body>与</html>之间。防止js操作未加载出来的节点。
+11、cookie与session的关系
+	cookie是在客户端保存状态，session是在服务器端保存状态，但是session也需要在客户端保存一个标识，所以正好保存在cookie中比较省事，还有一个原因就是在交互的过程中
+	浏览器可以按照规则自动将这个标识发送给服务器。但是也有其他的实现机制。但cookie可以被人为的禁止，则必须有其他机制以便在cookie被禁止时
+	仍然能够把session id传递回服务器。经常被使用的一种技术叫做URL重写，就是把session id直接附加在URL路径的后面。还有一种技术叫做表单隐藏字段。就是服务器
+	会自动修改表单，添加一个隐藏字段，以便在表单提交时能够把session id传递回服务器。
+12、如果表单的action为空，则表示提交到当前页面
+13、iframe标签的作用	
+
+14、js中的for-in与java中的for-in是不一样的，在java中对数组进行for-in如下：
+	String[] a={"a","b","c"};
+    for(String b:a){
+        System.out.println(b);
+    }
+	//输出结果：abc
+	但是在JavaScript中：
+	var a=["a","b","c"];
+	for(var el in a){
+		document.write(el);
+	}
+	//输出结果：123。输出的下标。
+	
+15、让网页强制以Ie8内核进行解析<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+16、with关键字的用法：
+	with语句可以方便的用来引用某个特定对象中已有的属性。
+	2)语法格式：
+	with(objectName){
+		//代码
+	}
+	有时候在一个程序代码中需要多次使用某个对象的属性或方法，使用上述with方法就不用每次都使用对象.属性或对象.方法，而直接使用属性或方法就可以了。
+
+17、Socket通信原理：
+	
+18、本地的进程间通信：
+	本地的进程间通信有很多种方式，但可以总结为以下4类：
+	①消息传递(管道、FIFO、消息队列)
+	②同步(互斥量、条件变量、读写锁、文件和写记录锁、信号量)
+	③共享内存(匿名的和具名的)
+	④远程过程调用
+	
+19、IE浏览器报错“不能执行已释放Script代码”。这个错误一般是在模态窗口或者iframe关闭时出现，原因是因为子窗口返回的值为一个引用类型的值(数组或者对象)，对于引用类型的值，返回的是一个指针，
+	当窗口关闭之后，堆中的内存释放导致报错，但是可以取到引用类型的值的属性。该bug发生在较低版本的IE中，其他浏览器无此bug。解决方法一种是对返回的对象进行深度拷贝，
+	将里面每个属性的值都复制出来，另一种是将主页中返回值的后续操作搬到子页面中解决。
+
+	
+	
+	
+	
+	
+	
+	

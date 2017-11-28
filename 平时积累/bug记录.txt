@@ -1,0 +1,15 @@
+-------------2016.10.25 16:33-------------
+今天解决了Submit New Order中L3VPN业务下Check Feasibility之后点击Next按钮，弹出的页面一直是灰色且上面有Loading.....字样的遮盖情况，
+是因为webrsp_jQuery/bss/ordermg/singaporencnew/general/EUC/bizjs/Intake.js这个文件中在删除修改时遗留了一个“*/”在代码里，导致该js文件有错误无法加载。
+-------------2016.10.26 15:01-------------
+用IE9及以上或者Firefox浏览器登录SSO会提示strXml未定义，可能的解决办法就是如下：
+var xmlStr = xmlDom.xml;
+if (!xmlStr) {
+	xmlStr = (new XMLSerializer()).serializeToString(xmlDom);
+}
+===出错位置：D:\eclipse_x64\workspace_v70s\sso_web\WebContent\techfrm\common\RemoteHandler.js--------Line:405
+----------------------------2016.10.27---------------------
+IE11中的window对象没有ActiveXObject这个属性，所以不能用if(window.ActiveXObject)来判断是不是IE浏览器
+
+IE8中的bug，对于showMalog()函数，弹出窗口相当于一个独立的作用域，当关闭弹出窗后，该窗口的内存释放，所以通过主窗体传入弹出窗的变量值也会清空，此为bug，解决方法是通过
+深度拷贝(对于对象或者数组)来将弹出框中的值复制出来或者是将弹出框之后的操作移到弹出框中完成，返回完成之后的结果。
